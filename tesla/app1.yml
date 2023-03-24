@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: tesla
+  template:
+    metadata:
+      name: webapp
+      labels:
+        app: tesla
+    spec:
+      containers:
+      - name: app
+        image: mylandmarktech/maven-web-app
+        ports:
+        - containerPort: 8080

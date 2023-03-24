@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javaapp
+  namespace: qa
+  labels: 
+    app: javaapp
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: javaapp
+  strategy:
+    type: Recreate    
+  template:
+    metadata:
+      name: tesla
+      labels:
+        app: javaapp
+    spec:
+      containers:
+      - name: hello
+        image: mylandmarktech/hello:3
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: javasvc
+  namespace: qa
+spec: 
+  type: NodePort
+  selector:
+    app: javaapp
+  ports:    
+  - targetPort: 80
+    port: 80    
+    nodePort: 32500  

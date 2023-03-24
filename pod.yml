@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  annotations:
+  name: myapp
+  labels:
+    app: tesla
+    app: fe 
+spec: 
+  containers:
+  - name: webapp 
+    image: mylandmarktech/java-web-app
+    ports:
+    - containerPort: 8080
+

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomapp
+  namespace: dev
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate #RollingUpdate
+      #   rollingUpdate:
+      # maxUnavailable: 1
+      #maxSurge: 1
+      #minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      name: tomapp
+      labels: 
+        app: tomcat 
+    spec:
+      containers:
+      - name: tommy
+        image: mylandmarktech/hello:3
+        ports:
+        - containerPort: 80
+        resource:
+          request:
+            cpu:
+            memory:
+          limits:
+            cpu:
+            memory:      
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: tomsvc
+  namespace: dev
+spec:
+  type: NodePort
+  selector:
+    app: tomcat
+  ports:
+  - targetPort: 80
+    port: 443
+    nodePort: 32200
+            
